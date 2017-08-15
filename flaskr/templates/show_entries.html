@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div style="width: 100%;display: flex;">
+  <div style="float:left; width: 20%">
+   <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
+  </div>
+  <div style="float:right; width: 80%">
+    {% block markdown_editor %}{% endblock %}
+ </div>
+  </div>
+  <div style="clear:both"></div>
+{% endblock %}
