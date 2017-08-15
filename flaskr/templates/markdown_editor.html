@@ -1,14 +1,187 @@
 {% extends "show_entries.html" %}
 {% block markdown_editor %}
-  {% if session.logged_in %}
-    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-      <dl>
+{% if session.logged_in %}
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/ace-builds/src-min/ace.js"></script>
+<script src="bower_components/bootstrap-markdown-editor/dist/js/bootstrap-markdown-editor.js"></script>
+<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <dl>
         <dt>Title:
         <dd><input type=text size=30 name=title>
         <dt>Text:
         <dd><textarea name=text rows=5 cols=40></textarea>
         <dd><input type=submit value=Share>
-      </dl>
+    </dl>
+</form>
+
+<body>
+<div class="container">
+    <h1>Bootstrap Markdown Editor</h1>
+
+    <form id="form">
+                <textarea name="text" id="editor" class="md-textarea-hidden"># Header Level 1
+
+**Pellentesque habitant morbi tristique** senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. _Aenean ultricies mi vitae est_. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, `commodo vitae`, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum  rutrum orci, sagittis tempus lacus enim ac dui. [Donec non enim](#) in turpis pulvinar facilisis. Ut felis.
+
+## Header Level 2
+
+  1. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+  2. Aliquam tincidunt mauris eu risus.
+
+
+&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur  massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.
+
+### Header Level 3
+
+  * Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+  * Aliquam tincidunt mauris eu risus.
+
+```
+#header h1 a {
+  display: block;
+  width: 300px;
+  height: 80px;
+}
+```
+                </textarea>
+        <div class="md-container" style="width: 100%;">
+            <div class="md-loading"><span class="md-icon-container"><span class="md-icon"></span></span></div>
+            <div class="md-toolbar">
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="h1" data-original-title="Header 1">H1
+                        </button>
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="h2" data-original-title="Header 2">H2
+                        </button>
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="h3" data-original-title="Header 3">H3
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="bold" data-original-title="Bold"><span
+                                class="glyphicon glyphicon-bold"></span></button>
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="italic" data-original-title="Italic"><span
+                                class="glyphicon glyphicon-italic"></span></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="ul" data-original-title="Unordered list"><span
+                                class="glyphicon glyphicon glyphicon-list"></span></button>
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="ol" data-original-title="Ordered list"><span
+                                class="glyphicon glyphicon-th-list"></span></button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="link" data-original-title="Link"><span
+                                class="glyphicon glyphicon-link"></span></button>
+                        <button type="button" data-mdtooltip="tooltip" title="" class="md-btn btn btn-sm btn-default"
+                                data-btn="image" data-original-title="Insert image"><span
+                                class="glyphicon glyphicon-picture"></span></button>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="md-btn btn btn-sm btn-default" data-btn="fullscreen"><span
+                                class="glyphicon glyphicon-fullscreen"></span> Fullscreen
+                        </button>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="md-btn btn btn-sm btn-default btn-edit active" data-btn="edit">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </button>
+                        <button type="button" class="md-btn btn btn-sm btn-default btn-preview" data-btn="preview"><span
+                                class="glyphicon glyphicon-eye-open"></span> Preview
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="md-editor ace_editor ace-tomorrow" style="height: 400px; font-size: 14px; display: block;">
+                <textarea class="ace_text-input" wrap="off" autocapitalize="off" spellcheck="false"
+                          style="opacity: 0; height: 16px; width: 7.7px; right: 1143.3px; bottom: 382px;"></textarea>
+                <div class="ace_gutter" style="display: none;">
+                    <div class="ace_layer ace_gutter-layer ace_folding-enabled"
+                         style="margin-top: 0px; height: 430px; width: 49px;">
+                        <div class="ace_gutter-cell " style="height: 16px;">1</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">2</div>
+                        <div class="ace_gutter-cell " style="height: 80px;">3</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">4</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">5</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">6</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">7</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">8</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">9</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">10</div>
+                        <div class="ace_gutter-cell " style="height: 48px;">11</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">12</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">13</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">14</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">15</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">16</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">17</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">18</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">19</div>
+                        <div class="ace_gutter-cell " style="height: 16px;">20</div>
+                    </div>
+                    <div class="ace_gutter-active-line" style="top: 0px; height: 16px;"></div>
+                </div>
+                <div class="ace_scroller" style="left: 0px; right: 0px; bottom: 0px;">
+                    <div class="ace_content" style="margin-top: 0px; width: 1138px; height: 430px; margin-left: 0px;">
+                        <div class="ace_layer ace_print-margin-layer">
+                            <div class="ace_print-margin" style="left: 620px; visibility: hidden;"></div>
+                        </div>
+                        <div class="ace_layer ace_marker-layer"></div>
+                        <div class="ace_layer ace_text-layer" style="padding: 0px 4px;">
+                            <div class="ace_line_group" style="height:16px">
+                                <div class="ace_line" style="height:16px"></div>
+                            </div>
+                        </div>
+                        <div class="ace_layer ace_marker-layer"></div>
+                        <div class="ace_layer ace_cursor-layer ace_hidden-cursors">
+                            <div class="ace_cursor" style="left: 4px; top: 0px; width: 7.7px; height: 16px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ace_scrollbar ace_scrollbar-v" style="width: 22px; bottom: 0px; display: none;">
+                    <div class="ace_scrollbar-inner" style="width: 22px; height: 16px;"></div>
+                </div>
+                <div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 22px; left: 0px; right: 0px;">
+                    <div class="ace_scrollbar-inner" style="height: 22px; width: 1121px;"></div>
+                </div>
+                <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: hidden;">
+                    <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;"></div>
+                    <div style="height: auto; width: auto; top: -100px; left: -100px; visibility: hidden; position: fixed; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; overflow: visible;">
+                        X
+                    </div>
+                </div>
+            </div>
+            <div class="md-preview" style="height: 400px; display: none;"></div>
+        </div>
     </form>
-  {% endif %}
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+<script src="dist/js/bootstrap-markdown-editor.js"></script>
+<script>
+
+            jQuery(document).ready(function($) {
+
+                $('#editor').markdownEditor({
+                    preview: true,
+                    onPreview: function (content, callback) {
+                        callback( marked(content) );
+                    }
+                });
+
+            });
+
+
+</script>
+</body>
+{% endif %}
 {% endblock %}
