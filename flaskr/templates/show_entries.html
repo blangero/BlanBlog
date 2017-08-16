@@ -4,7 +4,7 @@
   <div style="float:left; width: 20%">
    <ul class=entries>
   {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+    <li><h2 id ="{{ entry.title }}" onclick = entryOnClick(this)>{{ entry.title }}</h2>{{ entry.text|safe }}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}
@@ -15,4 +15,11 @@
  </div>
   </div>
   <div style="clear:both"></div>
+<body>
+<script>
+    function entryOnClick(obj) {
+        document.getElementById("title").value = obj.id;
+    }
+</script>
+</body>
 {% endblock %}
