@@ -55,6 +55,8 @@ def show_entries():
 #    cur = db.execute('select title, text from entries order by id desc')
 #    entries = cur.fetchall()
     docs = doc_service()
+    #print(docs.doc_folder.resolve())
+    #print(docs.docs)
     entries = docs.fetchall()
     return render_template('markdown_editor.html', entries=entries)
 #    return render_template('show_entries.html', entries=entries)
