@@ -8,7 +8,7 @@ class doc_service(object):
     docs = []
 
     def __init__(self):
-	docs = []
+        docs = []
         for x in doc_folder.glob('**/*.md'):
             f = x.open()
             self.docs.append({'title':x.name,'text':f.read()[0:100]})

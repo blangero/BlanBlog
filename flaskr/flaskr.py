@@ -1,7 +1,7 @@
 # all the imports
 import os
 import sqlite3
-from .Model import doc_service
+from .model import doc_service
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 
